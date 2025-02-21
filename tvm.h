@@ -5,20 +5,17 @@ constexpr int Regnum = 32;
 //16 = ret
 enum OPCode {
 	rmov,
-	radd,
-	rsub,
-	rmult,
-	rdiv,
+	ropt,
 	rjmp,
 	rjz,
-	rprint,
 	rhalt,
 	rret,
 	rload,
 	rstore,
 	lif,
 	lwhile,
-	lcodeblock,
+	lcodeblockst,
+	lcodeblocked,
 	lfor
 };
 
