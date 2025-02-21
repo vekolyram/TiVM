@@ -6,26 +6,35 @@ enum TiOpCode {
 	ropt,
 	rjmp,
 	rhalt,
-	rret,
-	lif,
-	lwhile,
-	lcodeblockst,
-	lcodeblocked,
-	lfor,
 	gin,
 	gout,
-	call
+	call,
+	structst,
+	structed
 };
 enum TiOpType {
+	mov,
 	add,
 	sub,
 	mult,
 	div
 };
-struct TiStruct {};
+enum TiStructType {
+	TiClass,
+	TiImpl,
+	TiFunc,
+	TiCodeblock,
+	TiEnum,
+	TiIf,
+	TiWhile,
+	TiFor,
+	TiRet
+};
+struct TiStruct {
+	TiStructType type;
+
+};
 struct TiInstruction {
-public:
-	uint16_t instruction : 32;
 };
 class TiVM {
 	int pc;
@@ -33,13 +42,12 @@ class TiVM {
 	TiInstruction* currentInstruction;
 	TiInstruction* lastInstruction;
 	std::stack<TiStruct> structstack;
-	std::stack<int> callstack;
 	std::istream* input;
     std::ostream* output;
 public:
 	TiVM() : pc(0), running(false) {};
 	void parseCode(TiInstruction* inst);
-	void execropt(int address,);
+	void execropt(int r1,int address2,TiOpType type);
 	void execrjmp(int address);
 	void execrout(int r1);
 	void execrin(int r1);

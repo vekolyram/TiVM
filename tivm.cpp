@@ -1,4 +1,4 @@
-#include "tvm.h"
+#include "tivm.h"
 #include <iostream>
 void TiVM::parseCode(TiInstruction* inst) {
 	currentInstruction = inst;
