@@ -15,12 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tvm.h">
+    <ClInclude Include="tivm.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TiVMFactory.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tvm.cpp">
+    <ClCompile Include="tivm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
