@@ -4,19 +4,18 @@
 constexpr int Regnum = 32;
 //16 = ret
 enum OPCode {
-	rmov,
 	ropt,
 	rjmp,
-	rjz,
 	rhalt,
 	rret,
-	rload,
-	rstore,
 	lif,
 	lwhile,
 	lcodeblockst,
 	lcodeblocked,
-	lfor
+	lfor,
+	gin,
+	gout,
+	call
 };
 
 struct Instruction {
