@@ -22,7 +22,7 @@ enum TiOpType {
 };
 enum TiStructType {
 	TiClass,
-	TiImpl,
+	TiInterface,
 	TiFunc,
 	TiCodeblock,
 	TiEnum,
@@ -37,13 +37,15 @@ enum TiStructInfoField {
 	TiConstructor,
 	TiDestructor,
 	TiParent,
-	TiInterface
+	TiImpl,
+	TiAddress
 };
 struct TiStruct {
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
 };
 struct TiInstruction {
+	
 };
 class TiVM {
 	int pc;
@@ -63,4 +65,5 @@ public:
 	void execrhalt();
 	void execstructst(TiStruct tistruct);
 	void execstructed();
+	void execcall(int adress);
 };

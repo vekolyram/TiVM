@@ -7,12 +7,12 @@ void TiVM::parseCode(TiInstruction* inst) {
     lastInstruction = inst;
 }
 void TiVM::execrjmp(int address) {
-	callstack.push(pc);
 	pc = address;
 }
-void TiVM::execrout(int r1) {
-	*output << regs[r1];
-}
-void TiVM::execrin(int r1) {
-   	*input >> regs[r1];
-}
+void TiVM::execcall(int address) {
+	
+	pc = address;
+};
+void TiVM::execret() {
+	
+};
