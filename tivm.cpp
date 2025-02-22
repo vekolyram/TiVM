@@ -5,17 +5,12 @@ void TiVM::parseCode(TiInstruction* inst) {
 	
     lastInstruction = inst;
 }
-void TiVM::execrjmp(int address) {
-	pc = address;
-}
 void TiVM::execcall(int address) {
-	
-	pc = address;
+	for (TiStruct stru : funcs) {
+		if (stru.info.find()) {
+		}
+	}
 };
 void TiVM::execret() {
-	while (structstack.top()->type == TiStruct::TiRet) {
-		structstack.pop();
-	}
-	
-    structstack.top()->info.find(TiStruct::TiAddress);
+    nextInstruction = callstack.top()
 };

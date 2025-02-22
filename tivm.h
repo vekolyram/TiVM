@@ -6,9 +6,8 @@
 #include <iostream>
 #include <vector>
 
-enum TiOpCode {
+enum class TiOpCode {
 	ropt,
-	rjmp,
 	rhalt,
 	gin,
 	gout,
@@ -16,7 +15,7 @@ enum TiOpCode {
 	structst,
 	structed
 };
-enum TiOpType {
+enum class TiOpType {
 	mov,
 	add,
 	sub,
@@ -26,50 +25,67 @@ enum TiOpType {
 
 
 struct TiStruct {
-	enum TiStructType {
-		TiClass,
-		TiInterface,
-		TiFunc,
-		TiCodeblock,
-		TiEnum,
-		TiIf,
-		TiWhile,
-		TiFor,
-		TiRet
+	enum class TiStructType {
+		TiTypeClass,
+		TiTypeInterface,
+		TiTypeFunc,
+		TiTypeCodeblock,
+		TiTypeEnum,
+		TiTypeIf,
+		TiTypeWhile,
+		TiTypeFor
 	};
-	enum TiStructInfoField {
-		TiName,
-		TiFullName,
-		TiConstructor,
-		TiDestructor,
-		TiParent,
-		TiImpl
+	enum class TiStructInfoField {
+		TiInfoName,
+		TiInfoFullName,
+		TiInfoConstructor,
+		TiInfoDestructor,
+		TiInfoParent,
+		TiInfoImpl
 	};
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
+};
+struct TiFunc : TiStruct {
+	TiStructType type = TiStructType::TiTypeFunc;
+public:
+	TiFunc()
 };
 struct TiInstruction {
 	TiOpCode op;
     int r1;
 
 };
-struct MemChunk {
-    uint64_t data;
-};
+//struct TiMemChunk {
+//	int size;
+//};
+//struct TiBigMemChunk : TiMemChunk {
+//	uint64_t* data;
+//	int size = sizeof(data);
+//};
+//struct TiSmallMemChunk : TiMemChunk {
+//    uint16_t* data;
+//	int size = sizeof(data);
+//};
+//struct TiMidMemChunk : TiMemChunk {
+//    uint32_t* data;
+//   	int size = sizeof(data);
+//};
 class TiVM {
-	int pc;
 	bool running;
 	TiInstruction* currentInstruction;
 	TiInstruction* lastInstruction;
+	TiInstruction* nextInstruction;
 	std::stack<TiStruct*> structstack;
 	std::istream* input;
 	std::ostream* output;
-	std::vector<uint8_t> code;
+	std::vector<TiStruct> structs;
+	std::vector<TiFunc> funcs;
+	std::stack<TiInstruction*> callstack;
 public:
-	TiVM() : pc(0), running(false),currentInstruction(nullptr), lastInstruction(nullptr),input(&std::cin),output(&std::cout) {};
+	TiVM() : running(false),currentInstruction(nullptr), lastInstruction(nullptr),input(&std::cin),output(&std::cout) {};
 	void parseCode(TiInstruction* inst);
 	void execropt(int r1, int address2, TiOpType type);
-	void execrjmp(int address);
 	void execgout(int r1);
 	void execgin(int r1);
 	void execrhalt();
