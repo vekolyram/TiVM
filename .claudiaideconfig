@@ -1,5 +1,5 @@
 ﻿{
-  "BackgroundImageAbsolutePath": "c:\\users\\asus\\appdata\\local\\microsoft\\visualstudio\\17.0_52761b36\\extensions\\zf01d0qn.bam\\Images\\background.png",
+  "BackgroundImageAbsolutePath": "H:\\source\\repos\\TVM\\img\\Background\\yuuka_spr_Idle_01_1.6165665077209663.png",
   "BackgroundImagesDirectoryAbsolutePath": "c:\\users\\asus\\appdata\\local\\microsoft\\visualstudio\\17.0_52761b36\\extensions\\zf01d0qn.bam\\Images",
   "BlurMethod": 0,
   "BlurRadius": 0,
@@ -7,7 +7,7 @@
   "EditorBackgroundColorObject": null,
   "ExpandToIDE": false,
   "Extensions": ".png, .jpg, .gif, .bmp",
-  "ImageBackgroundType": 0,
+  "ImageBackgroundType": 2,
   "ImageFadeAnimationInterval": "PT5S",
   "ImageStretch": 0,
   "IsLimitToMainlyEditorWindow": false,
