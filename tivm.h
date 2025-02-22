@@ -1,7 +1,8 @@
 #pragma once
 #include <cstdint>
 #include <stack>
-
+#include <map>
+#include <string>
 enum TiOpCode {
 	ropt,
 	rjmp,
@@ -30,9 +31,17 @@ enum TiStructType {
 	TiFor,
 	TiRet
 };
+enum TiStructInfoField {
+	TiName,
+	TiFullName,
+	TiConstructor,
+	TiDestructor,
+	TiParent,
+	TiInterface
+};
 struct TiStruct {
 	TiStructType type;
-
+	std::map<TiStructInfoField, std::string> info;
 };
 struct TiInstruction {
 };
