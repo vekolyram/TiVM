@@ -6,24 +6,6 @@
 #include <iostream>
 #include <vector>
 
-enum class TiOpCode {
-	ropt,
-	rhalt,
-	gin,
-	gout,
-	call,
-	structst,
-	structed
-};
-enum class TiOpType {
-	mov,
-	add,
-	sub,
-	mult,
-	div
-};
-
-
 struct TiStruct {
 	enum class TiStructType {
 		TiTypeClass,
@@ -50,12 +32,28 @@ struct TiFunc : TiStruct {
 	const TiStructType type = TiStructType::TiTypeFunc;
 	std::vector<TiInstruction> instructions;
 public:
-	TiFunc()
+	TiFunc(std::string name,std::stack<TiStruct>& structstack){
+		//todo
+	}
 };
 struct TiInstruction {
+	enum class TiOpCode {
+		ropt,
+		rhalt,
+		gin,
+		gout,
+		call,
+		structst,
+		structed
+	};
+	enum class TiOpType {
+		mov,
+		add,
+		sub,
+		mult,
+		div
+	};
 	TiOpCode op;
-    int r1;
-	int 
 };
 struct TiRetState {
 	TiInstruction* ret;
@@ -82,7 +80,7 @@ public:
 	void run();
 	void addInstruction(TiInstruction inst);
 	void setCodeVector(std::vector<TiCodeChunk>& code_);
-	void execropt(int r1, int r2, TiOpType type);
+	void execropt(int r1, int r2, TiInstruction::TiOpType type);
 	void execgout(int r1);
 	void execgin(int r1);
 	void execrhalt();
