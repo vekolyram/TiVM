@@ -5,7 +5,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
+std::string getFullName(std::stack<TiStruct*>& structstack) {
+	for (auto& struct_: structstack._Get_container()) {
 
+	}
+}
 struct TiStruct {
 	enum class TiStructType {
 		TiTypeClass,
@@ -32,12 +36,11 @@ struct TiFunc : TiStruct {
 	const TiStructType type = TiStructType::TiTypeFunc;
 	std::vector<TiInstruction> instructions;
 public:
-	TiFunc(std::stack<TiStruct>& structstack,std::string name){
-		info.insert(TiStructInfoField::TiInfoFullName,);
+	TiFunc(std::stack<TiStruct*>& structstack, std::string name) {
+		info.insert(TiStructInfoField::TiInfoFullName, );
 	}
 };
 struct TiFuncPrototype : TiFunc {
-	
 };
 struct TiInstruction {
 	enum class TiOpCode {
@@ -79,8 +82,9 @@ class TiVM {
 	std::vector<TiStruct> structvector;
 	std::vector<TiFunc> funcsvector;
 	std::stack<TiRetState> callstack;
-	std::map<std::string, TiFuncPrototype> funcmap;
+	std::map<std::string, TiFuncPrototype> funcsmap;
 	TiInstruction* getCommand(int i);
+
 public:
 	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout) {};
 	void run();

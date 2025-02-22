@@ -7,7 +7,5 @@ struct TiVar {
 		int i;
 	} value;
 };
-union TiTNum {
-
-
+union TiNumT {
 };
