@@ -33,4 +33,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\Background\CH0184quarter.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="img\Background\CH0284quarter.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="img\Background\yuukaquarter.png">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

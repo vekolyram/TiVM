@@ -135,6 +135,11 @@
     <ClCompile Include="tivm.cpp" />
     <ClCompile Include="TiVMFactory.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\Background\CH0184quarter.png" />
+    <Image Include="img\Background\CH0284quarter.png" />
+    <Image Include="img\Background\yuukaquarter.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
