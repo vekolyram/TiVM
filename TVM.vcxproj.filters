@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tivm.h">
+    <ClInclude Include="TiVM.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TiVMFactory.h">
+    <ClInclude Include="TiObject.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tivm.cpp">
+    <ClCompile Include="TiVM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TiVMFactory.cpp">
+    <ClCompile Include="TiObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -55,26 +55,12 @@ public:
 struct TiInstruction {
 	TiOpCode op;
     int r1;
+	int 
 };
 struct TiRetState {
 	TiInstruction* ret;
 	int structStateCount;
 };
-//struct TiMemChunk {
-//	int size;
-//};
-//struct TiBigMemChunk : TiMemChunk {
-//	uint64_t* data;
-//	int size = sizeof(data);
-//};
-//struct TiSmallMemChunk : TiMemChunk {
-//    uint16_t* data;
-//	int size = sizeof(data);
-//};
-//struct TiMidMemChunk : TiMemChunk {
-//    uint32_t* data;
-//   	int size = sizeof(data);
-//};
 struct TiCodeChunk {
 	TiInstruction code[16];
 	TiCodeChunk() {

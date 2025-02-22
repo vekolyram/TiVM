@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="tivm.h" />
-    <ClInclude Include="TiVMFactory.h" />
+    <ClInclude Include="TiObject.h" />
+    <ClInclude Include="TiVM.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="tivm.cpp" />
-    <ClCompile Include="TiVMFactory.cpp" />
+    <ClCompile Include="TiObject.cpp" />
+    <ClCompile Include="TiVM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\Background\CH0184quarter.png" />
