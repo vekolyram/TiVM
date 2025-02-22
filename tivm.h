@@ -47,14 +47,18 @@ struct TiStruct {
 	std::map<TiStructInfoField, std::string> info;
 };
 struct TiFunc : TiStruct {
-	TiStructType type = TiStructType::TiTypeFunc;
+	const TiStructType type = TiStructType::TiTypeFunc;
+	std::vector<TiInstruction> instructions;
 public:
 	TiFunc()
 };
 struct TiInstruction {
 	TiOpCode op;
     int r1;
-
+};
+struct TiRetState {
+	TiInstruction* ret;
+	int structStateCount;
 };
 //struct TiMemChunk {
 //	int size;
@@ -71,26 +75,34 @@ struct TiInstruction {
 //    uint32_t* data;
 //   	int size = sizeof(data);
 //};
+struct TiCodeChunk {
+	TiInstruction code[16];
+	TiCodeChunk() {
+		memset(code, 0, sizeof(code));
+	}
+};
 class TiVM {
 	bool running;
-	TiInstruction* currentInstruction;
-	TiInstruction* lastInstruction;
-	TiInstruction* nextInstruction;
+	int pc;
+	std::vector<TiCodeChunk> code;
 	std::stack<TiStruct*> structstack;
 	std::istream* input;
 	std::ostream* output;
 	std::vector<TiStruct> structs;
 	std::vector<TiFunc> funcs;
-	std::stack<TiInstruction*> callstack;
+	std::stack<TiRetState> callstack;
 public:
-	TiVM() : running(false),currentInstruction(nullptr), lastInstruction(nullptr),input(&std::cin),output(&std::cout) {};
-	void parseCode(TiInstruction* inst);
-	void execropt(int r1, int address2, TiOpType type);
+	TiVM() : running(false),input(&std::cin),output(&std::cout) {};
+	void run();
+	void addInstruction(TiInstruction inst);
+	void setCodeVector(std::vector<TiCodeChunk>& code_);
+	void execropt(int r1, int r2, TiOpType type);
 	void execgout(int r1);
 	void execgin(int r1);
 	void execrhalt();
 	void execstructst(TiStruct tistruct);
 	void execstructed();
-	void execcall(int adress);
+	void execcall(TiFunc func);
 	void execret();
+	~TiVM();
 };
