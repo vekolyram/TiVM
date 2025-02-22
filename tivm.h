@@ -32,9 +32,12 @@ struct TiFunc : TiStruct {
 	const TiStructType type = TiStructType::TiTypeFunc;
 	std::vector<TiInstruction> instructions;
 public:
-	TiFunc(std::string name,std::stack<TiStruct>& structstack){
-		//todo
+	TiFunc(std::stack<TiStruct>& structstack,std::string name){
+		info.insert(TiStructInfoField::TiInfoFullName,);
 	}
+};
+struct TiFuncPrototype : TiFunc {
+	
 };
 struct TiInstruction {
 	enum class TiOpCode {
@@ -60,24 +63,26 @@ struct TiRetState {
 	int structStateCount;
 };
 struct TiCodeChunk {
-	TiInstruction code[16];
+	TiInstruction codes[16];
 	TiCodeChunk() {
-		memset(code, 0, sizeof(code));
+		memset(codes, 0, sizeof(codes));
 	}
 };
 class TiVM {
 	bool running;
 	int pc;
 	bool returning;
-	std::vector<TiCodeChunk> code;
+	std::vector<TiCodeChunk> codevector;
 	std::stack<TiStruct*> structstack;
-	std::istream* input;
-	std::ostream* output;
-	std::vector<TiStruct> structs;
-	std::vector<TiFunc> funcs;
+	std::istream* inputistream;
+	std::ostream* outputostream;
+	std::vector<TiStruct> structvector;
+	std::vector<TiFunc> funcsvector;
 	std::stack<TiRetState> callstack;
+	std::map<std::string, TiFuncPrototype> funcmap;
+	TiInstruction* getCommand(int i);
 public:
-	TiVM() : running(false),input(&std::cin),output(&std::cout) {};
+	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout) {};
 	void run();
 	void addInstruction(TiInstruction inst);
 	void setCodeVector(std::vector<TiCodeChunk>& code_);

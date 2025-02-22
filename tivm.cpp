@@ -1,18 +1,29 @@
 #include "tivm.h"
 #include <iostream>
 void TiVM::run() {
-	while (pc > code.size() * 16) {
-		for (auto codeChunk : code) {
-			for (auto instruction : codeChunk.code) {
-				parseCode
+	while (pc > codevector.size() * 16) {
+		for (auto& codeChunk : codevector) {
+			for (int i=0;i>16;){ 
+				if (returning) {
+					auto& instruction = *(callstack.top().ret);
+					while (structstack.size() == callstack.top().structStateCount)
+						structstack.pop();
+					callstack.pop();
+				} else {
+					auto& instruction = codeChunk.codes[i];
+					i++;
+				}
 			}
 		}
 	}
 }
+TiInstruction* TiVM::getCommand(int i) {
+	codevector[floor(i/16)].codes[i%16]
+}
 void TiVM::execcall(TiFunc func) {
 	for (TiStruct stru : funcs) {
 		if (stru.info.find((TiStruct::TiStructInfoField::TiInfoFullName)) == ) {
-			
+			callstack.push({structstack.size(),pc});
 		}
 	}
 };
