@@ -3,6 +3,9 @@
 #include <stack>
 #include <map>
 #include <string>
+#include <iostream>
+#include <vector>
+
 enum TiOpCode {
 	ropt,
 	rjmp,
@@ -20,45 +23,52 @@ enum TiOpType {
 	mult,
 	div
 };
-enum TiStructType {
-	TiClass,
-	TiInterface,
-	TiFunc,
-	TiCodeblock,
-	TiEnum,
-	TiIf,
-	TiWhile,
-	TiFor,
-	TiRet
-};
-enum TiStructInfoField {
-	TiName,
-	TiFullName,
-	TiConstructor,
-	TiDestructor,
-	TiParent,
-	TiImpl,
-	TiAddress
-};
+
+
 struct TiStruct {
+	enum TiStructType {
+		TiClass,
+		TiInterface,
+		TiFunc,
+		TiCodeblock,
+		TiEnum,
+		TiIf,
+		TiWhile,
+		TiFor,
+		TiRet
+	};
+	enum TiStructInfoField {
+		TiName,
+		TiFullName,
+		TiConstructor,
+		TiDestructor,
+		TiParent,
+		TiImpl
+	};
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
 };
 struct TiInstruction {
-	
+	TiOpCode op;
+    int r1;
+
+};
+struct MemChunk {
+    uint64_t data;
 };
 class TiVM {
 	int pc;
 	bool running;
 	TiInstruction* currentInstruction;
 	TiInstruction* lastInstruction;
-	std::stack<TiStruct> structstack;
+	std::stack<TiStruct*> structstack;
 	std::istream* input;
-    std::ostream* output;
+	std::ostream* output;
+	std::vector<uint8_t> code;
 public:
-	TiVM() : pc(0), running(false) {};
+	TiVM() : pc(0), running(false),currentInstruction(nullptr), lastInstruction(nullptr),input(&std::cin),output(&std::cout) {};
 	void parseCode(TiInstruction* inst);
-	void execropt(int r1,int address2,TiOpType type);
+	void execropt(int r1, int address2, TiOpType type);
 	void execrjmp(int address);
 	void execgout(int r1);
 	void execgin(int r1);
@@ -66,4 +76,5 @@ public:
 	void execstructst(TiStruct tistruct);
 	void execstructed();
 	void execcall(int adress);
+	void execret();
 };
