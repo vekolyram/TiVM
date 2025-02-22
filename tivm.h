@@ -49,12 +49,9 @@ public:
 	void parseCode(TiInstruction* inst);
 	void execropt(int r1,int address2,TiOpType type);
 	void execrjmp(int address);
-	void execrout(int r1);
-	void execrin(int r1);
+	void execgout(int r1);
+	void execgin(int r1);
 	void execrhalt();
-	void execrret();
-	void execlif(int r1, int address);
-	void execlwhile(int r1, int address);
-	void execlcodeblock(int address);
-	void execlfor(int r1, int address);
+	void execstructst(TiStruct tistruct);
+	void execstructed();
 };
