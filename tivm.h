@@ -68,6 +68,7 @@ struct TiCodeChunk {
 class TiVM {
 	bool running;
 	int pc;
+	bool returning;
 	std::vector<TiCodeChunk> code;
 	std::stack<TiStruct*> structstack;
 	std::istream* input;

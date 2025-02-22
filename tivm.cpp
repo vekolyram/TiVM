@@ -4,7 +4,7 @@ void TiVM::run() {
 	while (pc > code.size() * 16) {
 		for (auto codeChunk : code) {
 			for (auto instruction : codeChunk.code) {
-
+				parseCode
 			}
 		}
 	}
@@ -17,5 +17,5 @@ void TiVM::execcall(TiFunc func) {
 	}
 };
 void TiVM::execret() {
-	vector = callstack.top().ret;
+	returning = true;
 };
