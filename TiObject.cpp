@@ -1,2 +1,2 @@
-#include "TiVar.h"
+#include "TiObject.h"
 #include <string>
