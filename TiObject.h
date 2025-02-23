@@ -21,7 +21,9 @@ struct TiStruct {
 		TiInfoConstructor,
 		TiInfoDestructor,
 		TiInfoParent,
-		TiInfoImpl
+		TiInfoImpl,
+		TiInfoParams,
+		TiInfoReturns
 	};
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;

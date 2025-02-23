@@ -9,6 +9,7 @@ struct TiInstruction {
 		rhalt,
 		gin,
 		gout,
+		gerr,
 		call,
 		structst,
 		structed
@@ -23,7 +24,7 @@ struct TiInstruction {
 };
 struct TiRetState {
 	TiInstruction* ret;
-	std::stack<TiStruct> structstack;
+	std::stack<TiStruct*> structstack;
 };
 struct TiCodeChunk {
 	TiInstruction codes[16];
@@ -39,6 +40,7 @@ class TiVM {
 	std::stack<TiStruct*> structstack;
 	std::istream* inputistream;
 	std::ostream* outputostream;
+	std::ostream* errorostream;
 	std::vector<TiStruct> structvector;
 	std::vector<TiFunc> funcsvector;
 	std::stack<TiRetState> callstack;
@@ -46,13 +48,14 @@ class TiVM {
 	TiInstruction* getCommand(int i);
 
 public:
-	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout) {};
+	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout),errorostream(&std::cerr) {};
 	void run();
 	void addInstruction(TiInstruction inst);
 	void setCodeVector(std::vector<TiCodeChunk>& code_);
 	void execropt(int r1, int r2, TiInstruction::TiOpType type);
 	void execgout(int r1);
 	void execgin(int r1);
+	void execgerr(int r1);
 	void execrhalt();
 	void execstructst(TiStruct tistruct);
 	void execstructed();

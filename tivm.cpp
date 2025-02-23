@@ -6,8 +6,7 @@ void TiVM::run() {
 			for (int i = 0;i > 16;) {
 				if (returning) {
 					auto& instruction = *(callstack.top().ret);
-					while (structstack.size() == callstack.top().structStateCount)
-						structstack.pop();
+					structstack = callstack.top().structstack;
 					callstack.pop();
 				}
 				else {
@@ -24,10 +23,12 @@ TiInstruction* TiVM::getCommand(int i) {
 void TiVM::execcall(TiFunc func) {
 	for (TiStruct stru : funcsvector) {
 		if (stru.info.find((TiStruct::TiStructInfoField::TiInfoFullName)) == ) {
-			callstack.push({ structstack.size(),pc });
+			callstack.push({ getCommand(pc+1),structstack });
+			break;
 		}
 	}
 };
 void TiVM::execret() {
 	returning = true;
 };
+void
