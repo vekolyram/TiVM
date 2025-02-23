@@ -39,14 +39,18 @@ public:
 std::string getFullName(std::stack<TiStruct*>& structstack,std::string name) {
 	std::string fullname="";
 	for (auto& struct_ : structstack._Get_container()) {
-		fullname += std::string(static_cast<int,(struct_->type)>);
-		struct_->info.find(TiStruct::TiStructInfoField::TiInfoName);
+		TiStruct::TiStructType type = struct_->type;
+		fullname += std::to_string(static_cast<int>(type));
+		fullname += struct_->info.find(TiStruct::TiStructInfoField::TiInfoName)->second;
+		fullname += ".";
 	}
+	fullname += name;
+    return fullname;
 }
 struct TiFuncPrototype : TiFunc {
 };
 struct TiInstruction {
-	enum class TiOpCode {12
+	enum class TiOpCode {
 		ropt,
 		rhalt,
 		gin,
