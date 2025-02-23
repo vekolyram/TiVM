@@ -1,9 +1,12 @@
 #pragma once
-#include "string"
 #include <map>
 #include <stack>
 #include <vector>
 #include <string>
+#include <span>
+#include <variant>
+union TiString {
+};
 struct TiStruct {
 	enum class TiStructType {
 		TiTypeClass,
@@ -22,19 +25,13 @@ struct TiStruct {
 		TiInfoDestructor,
 		TiInfoParent,
 		TiInfoImpl,
-		TiInfoParams,
-		TiInfoReturns
+		TiLocalVarList
 	};
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
 };
-struct TiFunc : TiStruct {
-	const TiStructType type = TiStructType::TiTypeFunc;
+struct TiFunc : TiFuncPrototype {
 	std::vector<TiInstruction> instructions;
-public:
-	TiFunc(std::stack<TiStruct*>& structstack, std::string name) {
-		info.insert(std::map<TiStructInfoField, std::string>::value_type(TiStructInfoField::TiInfoFullName, getFullName(structstack,name)));
-	}
 };
 std::string getFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	std::string fullname = "";
@@ -47,7 +44,17 @@ std::string getFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	fullname += name;
 	return fullname;
 }
-struct TiFuncPrototype : TiFunc {
+struct TiFuncPrototype {
+	std::string fullName;
+	std::string name;
+	std::span<TiVar> params;
+	std::span<TiVar> returns;
+	int postion;
+public:
+	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
+		fullName = getFullName(structstack_, name);
+		name = name_;
+	}
 };
 struct TiVar {
 	std::string typeClassFullName;
@@ -56,5 +63,7 @@ struct TiVar {
 		int i;
 	} value;
 };
-union TiNumT {
+union TiSpecialT {
+	std::string str;
+	TiFunc* func;
 };

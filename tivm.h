@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <iostream>
 #include "TiObject.h"
+#include <unordered_set>
 
 struct TiInstruction {
 	enum class TiOpCode {
@@ -36,7 +37,7 @@ class TiVM {
 	bool running;
 	int pc;
 	bool returning;
-	std::vector<TiCodeChunk> codevector;
+	std::span<TiCodeChunk> codespan;
 	std::stack<TiStruct*> structstack;
 	std::istream* inputistream;
 	std::ostream* outputostream;
@@ -44,14 +45,12 @@ class TiVM {
 	std::vector<TiStruct> structvector;
 	std::vector<TiFunc> funcsvector;
 	std::stack<TiRetState> callstack;
-	std::map<std::string, TiFuncPrototype> funcsmap;
+	std::unordered_set<int, TiFuncPrototype> funcptsset;
 	TiInstruction* getCommand(int i);
 
 public:
-	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout),errorostream(&std::cerr) {};
+	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout), errorostream(&std::cerr) {};
 	void run();
-	void addInstruction(TiInstruction inst);
-	void setCodeVector(std::vector<TiCodeChunk>& code_);
 	void execropt(int r1, int r2, TiInstruction::TiOpType type);
 	void execgout(int r1);
 	void execgin(int r1);
