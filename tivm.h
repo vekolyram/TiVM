@@ -15,12 +15,13 @@ class TiVM {
 	std::vector<TiFunc> funcsvector;
 	std::stack<TiRetState> callstack;
 	std::unordered_set<int, TiFuncPrototype> funcptsset;
+	std::unordered_set<int, std::string> sstringset;
 	TiInstruction* getCommand(int i);
 
 public:
 	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout), errorostream(&std::cerr) {};
 	void run();
-	void execropt(int r1, int r2, TiInstruction::TiOpType type);
+	void execropt(const TiVar& r1, const TiVar& r2, TiVar& r3, TiInstruction::TiOpType type);
 	void execgout(int r1);
 	void execgin(int r1);
 	void execgerr(int r1);

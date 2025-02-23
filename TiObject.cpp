@@ -11,3 +11,7 @@ static int getTiFuncSign(std::string fullName, std::span<TiVar> params, std::spa
 	}
 	return ret;
 }
+static int getStrSign(std::string& str) {
+	std::hash<std::string> hasher;
+	return hasher(str);
+}

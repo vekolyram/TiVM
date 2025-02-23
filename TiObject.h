@@ -2,10 +2,9 @@
 #include "TiDep.h"
 #include "TiCode.h"
 typedef std::variant<int, double> TiNumType;
-typedef std::string& TiSString;
-typedef std::string TiString;
-union TiString {
-};
+typedef std::string* TiSString;
+typedef std::string TiLString;
+typedef std::variant<TiSString, TiLString> TiStrType;
 struct TiStruct {
 	enum class TiStructType {
 		TiTypeClass,
@@ -47,13 +46,18 @@ std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string na
 	return fullname;
 }
 struct TiVar {
-	std::string typeClassFullName;
-	union {
+	TiLString typeClassFullName;
+	union vunion {
 		bool b;
 		int i;
 	} value;
+
+	TiVar(const TiLString& typeClassFullName, const vunion& value)
+		: typeClassFullName(typeClassFullName), value(value)
+	{
+	}
 };
-int getTiFuncSign(std::string fullName, std::span<TiVar> params, std::span<TiVar> returns);
+static int getTiFuncSign(std::string fullName, std::span<TiVar> params, std::span<TiVar> returns);
 struct TiFuncPrototype {
 	std::string fullName;
 	long sign;
@@ -70,6 +74,6 @@ public:
 };
 
 union TiSpecialT {
-	std::string str;
+	TiStrType str;
 	TiFunc* func;
 };

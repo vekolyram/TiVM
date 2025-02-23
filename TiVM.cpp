@@ -11,6 +11,7 @@ void TiVM::run() {
 				else {
 					auto& instruction = codeChunk.codes[i];
 					i++;
+					pc++;
 				}
 			}
 		}
@@ -30,3 +31,5 @@ void TiVM::execcall(TiFuncPrototype funcpt) {
 void TiVM::execret() {
 	returning = true;
 };
+void TiVM::execropt() {
+}

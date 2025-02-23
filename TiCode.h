@@ -1,4 +1,6 @@
 #pragma once
+#include "TiDep.h"
+#include "TiObject.h"
 struct TiInstruction {
 	static enum class TiOpCode {
 		ropt,
