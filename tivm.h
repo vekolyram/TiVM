@@ -5,11 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-std::string getFullName(std::stack<TiStruct*>& structstack) {
-	for (auto& struct_: structstack._Get_container()) {
 
-	}
-}
 struct TiStruct {
 	enum class TiStructType {
 		TiTypeClass,
@@ -37,13 +33,20 @@ struct TiFunc : TiStruct {
 	std::vector<TiInstruction> instructions;
 public:
 	TiFunc(std::stack<TiStruct*>& structstack, std::string name) {
-		info.insert(TiStructInfoField::TiInfoFullName, );
+		info.insert(std::map<TiStructInfoField,std::string>::value_type(TiStructInfoField::TiInfoFullName, getFullName(structstack)));
 	}
 };
+std::string getFullName(std::stack<TiStruct*>& structstack,std::string name) {
+	std::string fullname="";
+	for (auto& struct_ : structstack._Get_container()) {
+		fullname += std::string(static_cast<int,(struct_->type)>);
+		struct_->info.find(TiStruct::TiStructInfoField::TiInfoName);
+	}
+}
 struct TiFuncPrototype : TiFunc {
 };
 struct TiInstruction {
-	enum class TiOpCode {
+	enum class TiOpCode {12
 		ropt,
 		rhalt,
 		gin,
@@ -53,7 +56,6 @@ struct TiInstruction {
 		structed
 	};
 	enum class TiOpType {
-		mov,
 		add,
 		sub,
 		mult,
@@ -63,7 +65,7 @@ struct TiInstruction {
 };
 struct TiRetState {
 	TiInstruction* ret;
-	int structStateCount;
+	std::stack<TiStruct> structstack;
 };
 struct TiCodeChunk {
 	TiInstruction codes[16];
