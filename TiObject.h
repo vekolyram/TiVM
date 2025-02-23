@@ -5,6 +5,7 @@
 #include <string>
 #include <span>
 #include <variant>
+typedef std::variant<int, double> TiNumType;
 union TiString {
 };
 struct TiStruct {
@@ -30,10 +31,13 @@ struct TiStruct {
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
 };
-struct TiFunc : TiFuncPrototype {
-	std::vector<TiInstruction> instructions;
+struct TiFunc {
+	const TiFuncPrototype proto;
+	std::span<TiInstruction> instructions;
+public:
+	TiFunc(TiFuncPrototype proto_, std::span<TiInstruction> insts) : proto(proto_), instructions(insts) {}
 };
-std::string getFullName(std::stack<TiStruct*>& structstack, std::string name) {
+std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	std::string fullname = "";
 	for (auto& struct_ : structstack._Get_container()) {
 		TiStruct::TiStructType type = struct_->type;
@@ -44,17 +48,19 @@ std::string getFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	fullname += name;
 	return fullname;
 }
-struct TiFuncPrototype {
+struct
+	struct TiFuncPrototype {
 	std::string fullName;
+	int sign;
 	std::string name;
 	std::span<TiVar> params;
 	std::span<TiVar> returns;
 	int postion;
-public:
-	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
-		fullName = getFullName(structstack_, name);
-		name = name_;
-	}
+	public:
+		TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
+			fullName = getNormalFullName(structstack_, name);
+			name = name_;
+		}
 };
 struct TiVar {
 	std::string typeClassFullName;
