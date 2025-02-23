@@ -1,38 +1,7 @@
 #pragma once
-#include <cstdint>
-#include <iostream>
 #include "TiObject.h"
-#include <unordered_set>
-
-struct TiInstruction {
-	enum class TiOpCode {
-		ropt,
-		rhalt,
-		gin,
-		gout,
-		gerr,
-		call,
-		structst,
-		structed
-	};
-	enum class TiOpType {
-		add,
-		sub,
-		mult,
-		div
-	};
-	TiOpCode op;
-};
-struct TiRetState {
-	TiInstruction* ret;
-	std::stack<TiStruct*> structstack;
-};
-struct TiCodeChunk {
-	TiInstruction codes[16];
-	TiCodeChunk() {
-		memset(codes, 0, sizeof(codes));
-	}
-};
+#include "TiCode.h"
+#include "TiDep.h"
 class TiVM {
 	bool running;
 	int pc;
@@ -58,7 +27,7 @@ public:
 	void execrhalt();
 	void execstructst(TiStruct tistruct);
 	void execstructed();
-	void execcall(TiFunc func);
+	void execcall(TiFuncPrototype func);
 	void execret();
 	~TiVM();
 };

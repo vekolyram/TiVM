@@ -1,5 +1,4 @@
 #include "tivm.h"
-#include <iostream>
 void TiVM::run() {
 	while (pc > codespan.size() * 16) {
 		for (auto& codeChunk : codespan) {
@@ -31,4 +30,3 @@ void TiVM::execcall(TiFuncPrototype funcpt) {
 void TiVM::execret() {
 	returning = true;
 };
-void

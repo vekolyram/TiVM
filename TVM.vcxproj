@@ -129,11 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="TiCode.h" />
+    <ClInclude Include="TiDep.h" />
     <ClInclude Include="TiObject.h" />
     <ClInclude Include="TiVM.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TiCode.cpp" />
     <ClCompile Include="TiObject.cpp" />
     <ClCompile Include="TiVM.cpp" />
   </ItemGroup>

@@ -1,11 +1,9 @@
 #pragma once
-#include <map>
-#include <stack>
-#include <vector>
-#include <string>
-#include <span>
-#include <variant>
+#include "TiDep.h"
+#include "TiCode.h"
 typedef std::variant<int, double> TiNumType;
+typedef std::string& TiSString;
+typedef std::string TiString;
 union TiString {
 };
 struct TiStruct {
@@ -48,20 +46,6 @@ std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string na
 	fullname += name;
 	return fullname;
 }
-struct
-	struct TiFuncPrototype {
-	std::string fullName;
-	int sign;
-	std::string name;
-	std::span<TiVar> params;
-	std::span<TiVar> returns;
-	int postion;
-	public:
-		TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
-			fullName = getNormalFullName(structstack_, name);
-			name = name_;
-		}
-};
 struct TiVar {
 	std::string typeClassFullName;
 	union {
@@ -69,6 +53,22 @@ struct TiVar {
 		int i;
 	} value;
 };
+int getTiFuncSign(std::string fullName, std::span<TiVar> params, std::span<TiVar> returns);
+struct TiFuncPrototype {
+	std::string fullName;
+	long sign;
+	std::string name;
+	std::span<TiVar> params;
+	std::span<TiVar> returns;
+	int postion;
+public:
+	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
+		fullName = getNormalFullName(structstack_, name);
+		sign = getTiFuncSign(fullName, params, returns);
+		name = name_;
+	}
+};
+
 union TiSpecialT {
 	std::string str;
 	TiFunc* func;
