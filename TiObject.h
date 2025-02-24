@@ -29,10 +29,10 @@ struct TiStruct {
 	std::map<TiStructInfoField, std::string> info;
 };
 struct TiFunc {
-	const TiFuncPrototype proto;
+	const TiFuncPrototype* proto;
 	std::span<TiInstruction> instructions;
 public:
-	TiFunc(TiFuncPrototype proto_, std::span<TiInstruction> insts) : proto(proto_), instructions(insts) {}
+	TiFunc(TiFuncPrototype* proto_, std::span<TiInstruction> insts) : proto(proto_), instructions(insts) {}
 };
 std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	std::string fullname = "";
