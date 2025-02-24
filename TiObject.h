@@ -34,7 +34,7 @@ struct TiFunc {
 public:
 	TiFunc(TiFuncPrototype* proto_, std::span<TiInstruction> insts) : proto(proto_), instructions(insts) {}
 };
-std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
+static std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
 	std::string fullname = "";
 	for (auto& struct_ : structstack._Get_container()) {
 		TiStruct::TiStructType type = struct_->type;
@@ -57,10 +57,10 @@ struct TiVar {
 	{
 	}
 };
-static int getTiFuncSign(std::string fullName, std::span<TiVar> params, std::span<TiVar> returns);
+static int getTiFuncSign(TiFuncPrototype* proto);
 struct TiFuncPrototype {
 	std::string fullName;
-	long sign;
+	int sign;
 	std::string name;
 	std::span<TiVar> params;
 	std::span<TiVar> returns;
@@ -68,7 +68,7 @@ struct TiFuncPrototype {
 public:
 	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
 		fullName = getNormalFullName(structstack_, name);
-		sign = getTiFuncSign(fullName, params, returns);
+		sign = getTiFuncSign(this);
 		name = name_;
 	}
 };
