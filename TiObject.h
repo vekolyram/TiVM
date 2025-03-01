@@ -1,6 +1,7 @@
 #pragma once
 #include "TiDep.h"
 #include "TiCode.h"
+#include "TiVMFac.h"
 typedef std::variant<int, double> TiNumType;
 typedef std::string* TiSString;
 typedef std::string TiLString;
@@ -10,7 +11,7 @@ typedef struct TiFunc {
 	const TiCodeBlock cb;
 	const TiStruct parent;
 public:
-	TiFunc(TiFuncPrototype* proto_, TiCodeBlock cb_) : proto(proto_), cb(cb_) {}
+	TiFunc(TiFuncPrototype* proto_, TiCodeBlock cb_, TiStruct parent_) : proto(proto_), cb(cb_), parent(parent_) {}
 };
 typedef struct TiVar {
 	TiLString typeClassFullName;
@@ -63,6 +64,10 @@ public:
 		fullName = getNormalFullName(structstack_, name_);
 		sign = getTiFuncSign(this);
 		name = name_;
+	}
+	TiFunc init(TiVMFac fac) {
+		inited = true;
+		fac.
 	}
 };
 
