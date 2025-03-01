@@ -11,12 +11,14 @@ class TiVM {
 	std::istream* inputistream;
 	std::ostream* outputostream;
 	std::ostream* errorostream;
+	//start willtoclass
 	std::vector<TiStruct> structvector;
 	std::vector<TiFunc> funcsvector;
+	//end
 	std::stack<TiRunState> callstack;
 	std::unordered_set<int, TiFuncPrototype> funcptsset;
 	std::unordered_set<int, std::string> sstringset;
-	TiInstruction* getCommand(int i);
+	//TiInstruction* getCommand(int i);
 
 public:
 	TiVM() : running(false), inputistream(&std::cin), outputostream(&std::cout), errorostream(&std::cerr) {};
