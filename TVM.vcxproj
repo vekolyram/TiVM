@@ -133,6 +133,7 @@
     <ClInclude Include="TiDep.h" />
     <ClInclude Include="TiObject.h" />
     <ClInclude Include="TiVM.h" />
+    <ClInclude Include="TiVMFac.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

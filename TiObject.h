@@ -1,51 +1,19 @@
 #pragma once
 #include "TiDep.h"
 #include "TiCode.h"
+#include "TiVMFac.h"
 typedef std::variant<int, double> TiNumType;
 typedef std::string* TiSString;
 typedef std::string TiLString;
 typedef std::variant<TiSString, TiLString> TiStrType;
-struct TiStruct {
-	enum class TiStructType {
-		TiTypeClass,
-		TiTypeInterface,
-		TiTypeFunc,
-		TiTypeCodeblock
-		//TiTypeIf,
-		//TiTypeWhile,
-		//TiTypeFor
-		//tologic
-	};
-	enum class TiStructInfoField {
-		TiInfoName,
-		TiInfoFullName,
-		//fullname to classfield
-		TiInfoConstructor,
-		TiInfoDestructor,
-		TiInfoParent,
-		TiInfoImpl
-	};
-	TiStructType type;
-	std::map<TiStructInfoField, std::string> info;
-};
-struct TiFunc {
+typedef struct TiFunc {
 	const TiFuncPrototype* proto;
-	std::span<TiInstruction> instructions;
+	const TiCodeBlock cb;
+	const TiStruct parent;
 public:
-	TiFunc(TiFuncPrototype* proto_, std::span<TiInstruction> insts) : proto(proto_), instructions(insts) {}
+	TiFunc(TiFuncPrototype* proto_, TiCodeBlock cb_, TiStruct parent_) : proto(proto_), cb(cb_), parent(parent_) {}
 };
-static std::string getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
-	std::string fullname = "";
-	for (auto& struct_ : structstack._Get_container()) {
-		TiStruct::TiStructType type = struct_->type;
-		fullname += std::to_string(static_cast<int>(type));
-		fullname += struct_->info.find(TiStruct::TiStructInfoField::TiInfoName)->second;
-		fullname += ".";
-	}
-	fullname += name;
-	return fullname;
-}
-struct TiVar {
+typedef struct TiVar {
 	TiLString typeClassFullName;
 	union vunion {
 		bool b;
@@ -56,22 +24,66 @@ struct TiVar {
 		: typeClassFullName(typeClassFullName), value(value)
 	{
 	}
+}; //update
+struct TiStruct {
+	enum class TiStructType {
+		TiTypeClass,
+		TiTypeInterface,
+		TiTypeFunc,
+		//TiTypeIf,
+		//TiTypeWhile,
+		//TiTypeFor
+		//  tologic
+	};
+	enum class TiStructInfoField {
+		TiInfoName,
+		TiInfoFullName,
+		//fullname to classfield
+		TiInfoConstructor,
+		TiInfoDestructor,
+		TiInfoParent,
+		TiInfoImpl
+	};
+	const TiStructType type;
+	const std::map<TiStructInfoField, std::string> info;
+	//class need magic func
 };
-static int getTiFuncSign(TiFuncPrototype* proto);
-struct TiFuncPrototype {
-	std::string fullName;
-	int sign;
-	std::string name;
-	std::span<TiVar> params;
-	std::span<TiVar> returns;
-	int postion;
+typedef struct TiCodeBlock {
 public:
-	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
-		fullName = getNormalFullName(structstack_, name);
+	std::span<TiInstruction&> insts;
+};
+typedef struct TiFuncPrototype {
+	TiLString fullName;
+	TiStrType name;
+	bool inited = false;
+	int sign;
+	std::span<TiVar> prmret;
+	TiRunState postion;
+public:
+	TiFuncPrototype(std::stack<TiStruct*>& structstack_, TiLString name_) {
+		fullName = getNormalFullName(structstack_, name_);
 		sign = getTiFuncSign(this);
 		name = name_;
 	}
+	TiFunc init(TiVMFac fac) {
+		inited = true;
+		fac.
+	}
 };
+
+static TiLString getNormalFullName(std::stack<TiStruct*>& structstack, std::string name) {
+	TiLString fullname = "";
+	for (auto& struct_ : structstack._Get_container()) {
+		TiStruct::TiStructType type = struct_->type;
+		fullname += std::to_string(static_cast<int>(type));
+		fullname += struct_->info.find(TiStruct::TiStructInfoField::TiInfoName)->second;
+		fullname += ".";
+	}
+	fullname += name;
+	return fullname;
+}
+
+static int getTiFuncSign(TiFuncPrototype* proto);
 
 union TiSpecialT {
 	TiStrType str;

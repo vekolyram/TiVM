@@ -20,13 +20,8 @@ struct TiInstruction {
 	};
 	TiOpCode op;
 };
-struct TiRetState {
-	TiInstruction* ret;
+struct TiRunState {
+	int pc;
+	int file;
 	std::stack<TiStruct*> structstack;
-};
-struct TiCodeChunk {
-	TiInstruction codes[16];
-	TiCodeChunk() {
-		memset(codes, 0, sizeof(codes));
-	}
 };
