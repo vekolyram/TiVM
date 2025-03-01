@@ -2,18 +2,18 @@
 #include "TiObject.h"
 #include "TiCode.h"
 #include "TiDep.h"
+
 class TiVM {
 	bool running;
-	int pc;
+	TiRunState state;
 	bool returning;
-	std::span<TiCodeChunk> codespan;
 	std::stack<TiStruct*> structstack;
 	std::istream* inputistream;
 	std::ostream* outputostream;
 	std::ostream* errorostream;
 	std::vector<TiStruct> structvector;
 	std::vector<TiFunc> funcsvector;
-	std::stack<TiRetState> callstack;
+	std::stack<TiRunState> callstack;
 	std::unordered_set<int, TiFuncPrototype> funcptsset;
 	std::unordered_set<int, std::string> sstringset;
 	TiInstruction* getCommand(int i);
