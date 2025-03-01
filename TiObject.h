@@ -28,7 +28,22 @@ struct TiStruct {
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
 };
-struct TiFunc {
+typedef struct TiFuncPrototype {
+	TiLString fullName;
+	int sign;
+	TiStrType name;
+	std::span<TiVar> prmret;
+	int prmrend;
+	int postion;
+public:
+	TiFuncPrototype(std::stack<TiStruct*>& structstack_, TiLString name_) {
+		fullName = getNormalFullName(structstack_, name_);
+		sign = getTiFuncSign(this);
+		name = name_;
+	}
+};
+
+typedef struct TiFunc {
 	const TiFuncPrototype* proto;
 	std::span<TiInstruction> instructions;
 public:
@@ -58,20 +73,6 @@ struct TiVar {
 	}
 };
 static int getTiFuncSign(TiFuncPrototype* proto);
-struct TiFuncPrototype {
-	std::string fullName;
-	int sign;
-	std::string name;
-	std::span<TiVar> params;
-	std::span<TiVar> returns;
-	int postion;
-public:
-	TiFuncPrototype(std::stack<TiStruct*>& structstack_, std::string name_) {
-		fullName = getNormalFullName(structstack_, name);
-		sign = getTiFuncSign(this);
-		name = name_;
-	}
-};
 
 union TiSpecialT {
 	TiStrType str;
