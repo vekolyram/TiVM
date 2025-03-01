@@ -11,7 +11,6 @@ void TiVM::run() {
 				else {
 					auto& instruction = codeChunk.codes[i];
 					i++;
-					pc++;
 				}
 			}
 		}
@@ -22,7 +21,7 @@ TiInstruction* TiVM::getCommand(int i) {
 }
 void TiVM::execcall(TiFuncPrototype funcpt) {
 	for (TiFunc func : funcsvector) {
-		if (func.proto.fullName == funcpt.fullName) {
+		if (func.fullName == funcpt.fullName) {
 			callstack.push({ getCommand(pc + 1),structstack });
 			break;
 		}
@@ -31,5 +30,3 @@ void TiVM::execcall(TiFuncPrototype funcpt) {
 void TiVM::execret() {
 	returning = true;
 };
-void TiVM::execropt() {
-}

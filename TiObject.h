@@ -10,20 +10,20 @@ struct TiStruct {
 		TiTypeClass,
 		TiTypeInterface,
 		TiTypeFunc,
-		TiTypeCodeblock,
-		TiTypeEnum,
-		TiTypeIf,
-		TiTypeWhile,
-		TiTypeFor
+		TiTypeCodeblock
+		//TiTypeIf,
+		//TiTypeWhile,
+		//TiTypeFor
+		//tologic
 	};
 	enum class TiStructInfoField {
 		TiInfoName,
 		TiInfoFullName,
+		//fullname to classfield
 		TiInfoConstructor,
 		TiInfoDestructor,
 		TiInfoParent,
-		TiInfoImpl,
-		TiLocalVarList
+		TiInfoImpl
 	};
 	TiStructType type;
 	std::map<TiStructInfoField, std::string> info;
